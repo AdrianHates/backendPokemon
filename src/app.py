@@ -38,11 +38,12 @@ cur.execute("""CREATE TABLE IF NOT EXISTS user_pokemon (
     hp INT CHECK (hp BETWEEN 0 AND 255),
     IVs INT CHECK (IVs BETWEEN 0 AND 31),
     location VARCHAR(10) NOT NULL,
+    position INT NOT NULL,
     XP INT,
     captured_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES usuarios(user_id)
 );""")
-cur.execute("SELECT * FROM usuarios")
+cur.execute("SELECT * FROM user_pokemon")
 print(cur.fetchall())
 conn.commit()
 conn.close()

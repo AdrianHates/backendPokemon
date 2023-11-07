@@ -26,7 +26,7 @@ def crear_usuario():
     new_user_id = cur.fetchone()[0] 
     numero_aleatorio = random.randint(0, 31)
 
-    cur.execute("INSERT INTO user_pokemon(user_id, pokemon_id, hp, IVs, location, XP ) VALUES (%s, %s, %s, %s, %s, %s)", (new_user_id, 25, 100, numero_aleatorio, "equipo", 0))
+    cur.execute("INSERT INTO user_pokemon(user_id, pokemon_id, hp, IVs, location, position, XP ) VALUES (%s, %s, %s, %s, %s, %s, %s)", (new_user_id, 25, 100, numero_aleatorio, "equipo", 1, 0))
     conn.commit()
 
     cur.close()
