@@ -9,10 +9,10 @@ app = Flask(__name__)
 CORS(app) 
 # Establecer la conexión a la base de datos
 conn = psycopg2.connect(
-    database="POKEMON",
-    user="fl0user",
-    password="Jgt0yFH5fPVh",
-    host="ep-wispy-meadow-64258402.us-east-2.aws.neon.fl0.io",
+    database="pokemon_ucdd",
+    user="pokemon_ucdd_user",
+    password="GcnoZ27mN4nBFvMXBdJEJgsiIXef8XOH",
+    host="dpg-cph7n8e3e1ms73d2ol60-a",
     port="5432",
     sslmode="require"
 )
