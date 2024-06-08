@@ -3,17 +3,22 @@ from flask import Flask, request, jsonify
 from rutas.post import usuarios_routes
 from rutas.get import usuarios_get_routes
 from flask_cors import CORS
+import os
+from dotenv import load_dotenv
 import psycopg2
+
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app) 
 # Establecer la conexión a la base de datos
+
 conn = psycopg2.connect(
-    database="pokemon_ucdd",
-    user="pokemon_ucdd_user",
-    password="GcnoZ27mN4nBFvMXBdJEJgsiIXef8XOH",
-    host="dpg-cph7n8e3e1ms73d2ol60-a",
-    port="5432",
+    database=os.getenv('DB_NAME'),
+    user=os.getenv('DB_USER'),
+    password=os.getenv('DB_PASSWORD'),
+    host=os.getenv('DB_HOST'),
+    port=os.getenv('DB_PORT'),
     sslmode="require"
 )
 
@@ -52,4 +57,4 @@ app.register_blueprint(usuarios_routes)
 app.register_blueprint(usuarios_get_routes)
 
 if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0', port=3000)
+    app.run(debug=True, host='0.0.0.0', port=3000)
