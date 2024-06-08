@@ -28,7 +28,7 @@ cur.execute('''
     CREATE TABLE IF NOT EXISTS usuarios (
         user_id SERIAL PRIMARY KEY,
         nombre VARCHAR(50) NOT NULL,
-        genero VARCHAR(1),
+        genero VARCHAR(5),
         x INT NOT NULL,
         y INT NOT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
