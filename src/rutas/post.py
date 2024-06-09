@@ -17,7 +17,7 @@ def crear_usuario():
 
     data = request.get_json()
     nombre = data['name']
-    genero = data['gender']
+    genero = data['gender'][0]
     #inicio
     x = 0
     y = 10
