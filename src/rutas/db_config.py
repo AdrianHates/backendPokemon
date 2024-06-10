@@ -1,8 +1,8 @@
 DATABASE_CONFIG = {
-    "database":"pokemon_ucdd",
-    "user":"pokemon_ucdd_user",
-    "password":"GcnoZ27mN4nBFvMXBdJEJgsiIXef8XOH",
-    "host":"dpg-cph7n8e3e1ms73d2ol60-a",
+    "database":"pokemon",
+    "user":"pokemon_owner",
+    "password":"0QM9pbREXdyS",
+    "host":"ep-jolly-thunder-a5ioyat6.us-east-2.aws.neon.tech",
     "port":"5432",
     "sslmode":"require"
 }
