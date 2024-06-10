@@ -15,7 +15,7 @@ def obtener_usuarios():
 
     return jsonify(usuarios)
 
-@usuarios_get_routes.route('/api/v1/users/<id>', methods=['GET'])
+@users_get_routes.route('/api/v1/users/<id>', methods=['GET'])
 def obtener_usuario_por_id(id):
     conn = psycopg2.connect(**DATABASE_CONFIG)
     cur = conn.cursor()
