@@ -24,8 +24,7 @@ conn = psycopg2.connect(
 
 # Crear una tabla de usuarios si no existe
 cur = conn.cursor()
-cur.execute('''
-    CREATE TABLE IF NOT EXISTS usuarios (
+cur.execute('''CREATE TABLE IF NOT EXISTS usuarios (
         user_id SERIAL PRIMARY KEY,
         nombre VARCHAR(50) NOT NULL,
         genero VARCHAR(5) NOT NULL,
