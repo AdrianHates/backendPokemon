@@ -3,11 +3,11 @@ import random
 from rutas.db_config import DATABASE_CONFIG
 import psycopg2
 
-usuarios_routes = Blueprint('usuarios_routes', __name__)
+users_routes = Blueprint('users_routes', __name__)
 
 # Aquí debes establecer tu conexión con la base de datos
 
-@usuarios_routes.route('/api/v1/usuarios', methods=['POST'])
+@users_routes.route('/api/v1/users', methods=['POST'])
 def crear_usuario():
     # Asegúrate de tener una conexión válida
     conn = psycopg2.connect(
@@ -16,13 +16,13 @@ def crear_usuario():
     cur = conn.cursor()
 
     data = request.get_json()
-    nombre = data['name']
-    genero = data['gender']
+    name = data['name']
+    gender = data['gender']
     #inicio
     x = 0
     y = 10
     
-    cur.execute("INSERT INTO usuarios (nombre, genero, x, y) VALUES (%s, %s, %s, %s) RETURNING user_id", (nombre, genero, x, y))
+    cur.execute("INSERT INTO usuarios (name, gender, x, y) VALUES (%s, %s, %s, %s) RETURNING user_id", (name, gender, x, y))
     new_user_id = cur.fetchone()[0] 
     numero_aleatorio = random.randint(0, 31)
 
@@ -31,4 +31,4 @@ def crear_usuario():
 
     cur.close()
     conn.close()
-    return jsonify({'message': 'Usuario creado exitosamente'})
+    return jsonify({'message': 'user create successfully'})

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, request, jsonify
-from rutas.post import usuarios_routes
-from rutas.get import usuarios_get_routes
+from rutas.post import users_routes
+from rutas.get import users_get_routes
 from flask_cors import CORS
 import os
 from dotenv import load_dotenv
@@ -26,12 +26,11 @@ conn = psycopg2.connect(
 cur = conn.cursor()
 cur.execute('''CREATE TABLE IF NOT EXISTS usuarios (
         user_id SERIAL PRIMARY KEY,
-        nombre VARCHAR(50) NOT NULL,
-        genero VARCHAR(5) NOT NULL,
+        name VARCHAR(50) NOT NULL,
+        gender VARCHAR(5) NOT NULL,
         x INT NOT NULL,
         y INT NOT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-
     )
 ''')
 
@@ -52,8 +51,8 @@ print(cur.fetchall())
 conn.commit()
 conn.close()
 
-app.register_blueprint(usuarios_routes)
-app.register_blueprint(usuarios_get_routes)
+app.register_blueprint(users_routes)
+app.register_blueprint(users_get_routes)
 
 if __name__ == '__main__':
     app.run(debug=False, host='0.0.0.0', port=3000)

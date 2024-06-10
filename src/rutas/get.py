@@ -2,24 +2,24 @@ from flask import Blueprint, jsonify, request
 import psycopg2
 from rutas.db_config import DATABASE_CONFIG
 
-usuarios_get_routes = Blueprint('usuarios_get_routes', __name__)
+users_get_routes = Blueprint('users_get_routes', __name__)
 
-@usuarios_get_routes.route('/api/v1/usuarios', methods=['GET'])
+@users_get_routes.route('/api/v1/users', methods=['GET'])
 def obtener_usuarios():
     conn = psycopg2.connect(**DATABASE_CONFIG)    
     cur = conn.cursor()
-    cur.execute("SELECT user_id, nombre, genero, created_at FROM usuarios")
+    cur.execute("SELECT user_id, name, gender, created_at FROM users")
     usuarios = cur.fetchall()
     cur.close()
     conn.close()
 
     return jsonify(usuarios)
 
-@usuarios_get_routes.route('/api/v1/usuarios/<id>', methods=['GET'])
+@usuarios_get_routes.route('/api/v1/users/<id>', methods=['GET'])
 def obtener_usuario_por_id(id):
     conn = psycopg2.connect(**DATABASE_CONFIG)
     cur = conn.cursor()
-    cur.execute("SELECT user_id, nombre, genero, x, y, created_at FROM usuarios WHERE user_id = %s", (id,))
+    cur.execute("SELECT user_id, name, gender, x, y, created_at FROM users WHERE user_id = %s", (id,))
     usuario = cur.fetchone()
     cur.execute("SELECT user_pokemon_id, pokemon_id, hp, IVs, location, position, XP, captured_at FROM user_pokemon WHERE user_id = %s", (id,))
     pokemons = cur.fetchall()
@@ -39,5 +39,5 @@ def obtener_usuario_por_id(id):
         }
         formatted_pokemons.append(formatted_pokemon)
 
-    return jsonify({ "usuario": usuario, "pokemons": formatted_pokemons })
+    return jsonify({ "user": usuario, "pokemons": formatted_pokemons })
 
