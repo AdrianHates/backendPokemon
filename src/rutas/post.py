@@ -22,7 +22,7 @@ def crear_usuario():
     x = 0
     y = 10
     
-    cur.execute("INSERT INTO usuarios (name, gender, x, y) VALUES (%s, %s, %s, %s) RETURNING user_id", (name, gender, x, y))
+    cur.execute("INSERT INTO users (name, gender, x, y) VALUES (%s, %s, %s, %s) RETURNING user_id", (name, gender, x, y))
     new_user_id = cur.fetchone()[0] 
     numero_aleatorio = random.randint(0, 31)
 
