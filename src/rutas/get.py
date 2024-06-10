@@ -9,11 +9,11 @@ def obtener_usuarios():
     conn = psycopg2.connect(**DATABASE_CONFIG)    
     cur = conn.cursor()
     cur.execute("SELECT user_id, name, gender, created_at FROM users")
-    usuarios = cur.fetchall()
+    users = cur.fetchall()
     cur.close()
     conn.close()
 
-    return jsonify(usuarios)
+    return jsonify(users)
 
 @users_get_routes.route('/api/v1/users/<id>', methods=['GET'])
 def obtener_usuario_por_id(id):

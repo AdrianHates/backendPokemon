@@ -25,7 +25,6 @@ conn = psycopg2.connect(
 # Crear una tabla de usuarios si no existe
 cur = conn.cursor()
 cur.execute('''
-        DROP TABLE usuarios
         CREATE TABLE IF NOT EXISTS users (
         user_id SERIAL PRIMARY KEY,
         name VARCHAR(50) NOT NULL,
