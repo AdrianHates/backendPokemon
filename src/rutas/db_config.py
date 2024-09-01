@@ -1,8 +1,12 @@
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
 DATABASE_CONFIG = {
-    "database":"pokemon_4e31",
-    "user":"pokemon",
-    "password":"DlslqtvCYmSAE4YTUW0MrAsNGG9fgc2p",
-    "host":"dpg-cpjck0ect0pc7387l0rg-a",
-    "port":"5432",
-    "sslmode":"require"
+    "database": os.getenv('DB_NAME'),    
+    "user": os.getenv('DB_USER'),
+    "password": os.getenv('DB_PASSWORD'),
+    "host": os.getenv('DB_HOST'),
+    "port": os.getenv('DB_PORT'),
+    "sslmode": "require"
 }

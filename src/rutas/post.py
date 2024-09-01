@@ -1,5 +1,4 @@
 from flask import Blueprint, jsonify, request
-import random
 from rutas.db_config import DATABASE_CONFIG
 import psycopg2
 
@@ -23,12 +22,33 @@ def crear_usuario():
     y = 10
     
     cur.execute("INSERT INTO users (name, gender, x, y) VALUES (%s, %s, %s, %s) RETURNING user_id", (name, gender, x, y))
-    new_user_id = cur.fetchone()[0] 
-    numero_aleatorio = random.randint(0, 31)
-
-    cur.execute("INSERT INTO user_pokemon(user_id, pokemon_id, hp, IVs, location, position, XP ) VALUES (%s, %s, %s, %s, %s, %s, %s)", (new_user_id, 25, 100, numero_aleatorio, "equipo", 1, 0))
     conn.commit()
-
     cur.close()
     conn.close()
     return jsonify({'message': 'user create successfully'})
+
+@users_routes.route('/api/v1/pokemons', methods=['POST'])
+def capturar_pokemon():
+    data = request.get_json()
+    user_id = data['user_id']
+    pokemon_number = data['pokemon_number']
+    level = data['level']
+    hp = data['stats']['current_hp']
+    status = 0
+    iv_hp = data['ivs']['hp']
+    iv_attack = data['ivs']['attack']
+    iv_defense = data['ivs']['defense']
+    iv_specialAttack = data['ivs']['specialAttack']
+    iv_specialDefense = data['ivs']['specialDefense']
+    iv_speed = data['ivs']['speed']
+    location = data['location']
+    xp = data['xp']
+
+    conn = psycopg2.connect(
+    **DATABASE_CONFIG)
+    cur = conn.cursor()    
+    cur.execute("INSERT INTO user_pokemon(user_id, pokemon_number, level, hp, status, iv_hp, iv_attack, iv_defense, iv_specialAttack, iv_specialDefense, iv_speed, location, xp ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (user_id, pokemon_number, level, hp, status, iv_hp, iv_attack, iv_specialAttack, iv_defense, iv_specialDefense, iv_speed, location, xp))
+    conn.commit()
+    cur.close()
+    conn.close()
+    return jsonify({'message': 'pokemon obtained successfully'})

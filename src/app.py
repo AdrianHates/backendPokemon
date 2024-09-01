@@ -6,6 +6,7 @@ from flask_cors import CORS
 import os
 from dotenv import load_dotenv
 import psycopg2
+from rutas.db_config import DATABASE_CONFIG
 
 load_dotenv()
 
@@ -14,17 +15,16 @@ CORS(app)
 # Establecer la conexión a la base de datos
 
 conn = psycopg2.connect(
-    database=os.getenv('DB_NAME'),
-    user=os.getenv('DB_USER'),
-    password=os.getenv('DB_PASSWORD'),
-    host=os.getenv('DB_HOST'),
-    port=os.getenv('DB_PORT'),
-    sslmode="require"
+    **DATABASE_CONFIG
 )
 
 # Crear una tabla de usuarios si no existe
 cur = conn.cursor()
+cur.execute("DROP TABLE IF EXISTS user_pokemon CASCADE;")
+conn.commit()
+
 cur.execute('''
+        
         CREATE TABLE IF NOT EXISTS users (
         user_id SERIAL PRIMARY KEY,
         name VARCHAR(50) NOT NULL,
@@ -36,16 +36,22 @@ cur.execute('''
 ''')
 
 cur.execute("""CREATE TABLE IF NOT EXISTS user_pokemon (
-    user_pokemon_id SERIAL PRIMARY KEY,
+    pokemon_id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
-    pokemon_id INTEGER NOT NULL,
+    pokemon_number INTEGER NOT NULL,
+    level INTEGER NOT NULL,
     hp INT CHECK (hp BETWEEN 0 AND 255),
-    IVs INT CHECK (IVs BETWEEN 0 AND 31),
-    location VARCHAR(10) NOT NULL,
-    position INT NOT NULL,
-    XP INT,
+    status INTEGER CHECK (status IN (0, 1, 2, 3, 4, 5)),    
+    IV_hp INT CHECK (IV_hp BETWEEN 0 AND 31),
+    IV_attack INT CHECK (IV_attack BETWEEN 0 AND 31),
+    IV_defense INT CHECK (IV_defense BETWEEN 0 AND 31),
+    IV_specialAttack INT CHECK (IV_specialAttack BETWEEN 0 AND 31),
+    IV_specialDefense INT CHECK (IV_specialDefense BETWEEN 0 AND 31),
+    IV_speed INT CHECK (IV_speed BETWEEN 0 AND 31),
+    location JSONB NOT NULL
+    xp INT NOT NULL
     captured_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );""")
 cur.execute("SELECT * FROM user_pokemon")
 print(cur.fetchall())
