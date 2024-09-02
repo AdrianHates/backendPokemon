@@ -2,11 +2,11 @@ from flask import Blueprint, jsonify, request
 from rutas.db_config import DATABASE_CONFIG
 import psycopg2
 
-users_routes = Blueprint('users_routes', __name__)
+users_post_routes = Blueprint('users_post_routes', __name__)
 
 # Aquí debes establecer tu conexión con la base de datos
 
-@users_routes.route('/api/v1/users', methods=['POST'])
+@users_post_routes.route('/api/v1/users', methods=['POST'])
 def crear_usuario():
     # Asegúrate de tener una conexión válida
     conn = psycopg2.connect(
@@ -27,7 +27,7 @@ def crear_usuario():
     conn.close()
     return jsonify({'message': 'user create successfully'})
 
-@users_routes.route('/api/v1/pokemons', methods=['POST'])
+@users_post_routes.route('/api/v1/pokemons', methods=['POST'])
 def capturar_pokemon():
     data = request.get_json()
     user_id = data['user_id']

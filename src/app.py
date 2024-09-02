@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, request, jsonify
-from rutas.post import users_routes
+from rutas.post import users_post_routes
 from rutas.get import users_get_routes
 from flask_cors import CORS
 import os
@@ -20,9 +20,6 @@ conn = psycopg2.connect(
 
 # Crear una tabla de usuarios si no existe
 cur = conn.cursor()
-cur.execute("DROP TABLE IF EXISTS user_pokemon CASCADE;")
-conn.commit()
-
 cur.execute('''
         
         CREATE TABLE IF NOT EXISTS users (
@@ -48,8 +45,8 @@ cur.execute("""CREATE TABLE IF NOT EXISTS user_pokemon (
     IV_specialAttack INT CHECK (IV_specialAttack BETWEEN 0 AND 31),
     IV_specialDefense INT CHECK (IV_specialDefense BETWEEN 0 AND 31),
     IV_speed INT CHECK (IV_speed BETWEEN 0 AND 31),
-    location JSONB NOT NULL
-    xp INT NOT NULL
+    location JSONB NOT NULL,
+    xp INT NOT NULL,
     captured_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );""")
@@ -58,7 +55,7 @@ print(cur.fetchall())
 conn.commit()
 conn.close()
 
-app.register_blueprint(users_routes)
+app.register_blueprint(users_post_routes)
 app.register_blueprint(users_get_routes)
 
 if __name__ == '__main__':

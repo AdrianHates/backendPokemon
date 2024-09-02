@@ -21,7 +21,7 @@ def obtener_usuario_por_id(id):
     cur = conn.cursor()
     cur.execute("SELECT user_id, name, gender, x, y, created_at FROM users WHERE user_id = %s", (id,))
     usuario = cur.fetchone()
-    cur.execute("SELECT pokemon_id, pokemon_number, level, iv_hp, iv_attack, iv_defense, iv_speed, location, position, XP, captured_at FROM user_pokemon WHERE user_id = %s", (id,))
+    cur.execute("SELECT pokemon_id, pokemon_number, level, hp, status, iv_hp, iv_attack, iv_defense, iv_speed, location, xp, captured_at FROM user_pokemon WHERE user_id = %s", (id,))
     pokemons = cur.fetchall()
     cur.close()
     conn.close()
@@ -31,18 +31,19 @@ def obtener_usuario_por_id(id):
             "pokemon_id": pokemon[0],
             "pokemon_number": pokemon[1],
             "level": pokemon[2],
+            "hp": pokemon [3],
+            "status": pokemon[4],
             "ivs": {
-                "hp": pokemon[3],
-                "attack": pokemon[4],
-                "defense": pokemon[5],
-                "specialAttack": pokemon[6],
-                "specialDefense": pokemon[7],
-                "speed": pokemon[8]
+                "hp": pokemon[5],
+                "attack": pokemon[6],
+                "defense": pokemon[7],
+                "specialAttack": pokemon[8],
+                "specialDefense": pokemon[9],
+                "speed": pokemon[10]
             },
-            "location": pokemon[9],
-            "position": pokemon[10],
-            "XP": pokemon[11],
-            "captured_at": pokemon[12],
+            "location": pokemon[11],
+            "xp": pokemon[12],
+            "captured_at": pokemon[13],
             "evs": {
                 "hp": 0,
                 "attack": 0,
@@ -50,12 +51,7 @@ def obtener_usuario_por_id(id):
                 "specialAttack": 0,
                 "specialDefense": 0,
                 "speed": 0
-            },
-            "stats": {
-                "max_hp": 0,
-                "current_hp": 0
-            },
-            "status": "none"
+            },            
         }
         formatted_pokemons.append(formatted_pokemon)
 
