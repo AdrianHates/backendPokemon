@@ -1,6 +1,8 @@
 from flask import Blueprint, jsonify, request
 from rutas.db_config import DATABASE_CONFIG
 import psycopg2
+import json
+
 
 users_post_routes = Blueprint('users_post_routes', __name__)
 
@@ -22,10 +24,11 @@ def crear_usuario():
     y = 10
     
     cur.execute("INSERT INTO users (name, gender, x, y) VALUES (%s, %s, %s, %s) RETURNING user_id", (name, gender, x, y))
+    user_id = cur.fetchone()[0]
     conn.commit()
     cur.close()
     conn.close()
-    return jsonify({'message': 'user create successfully'})
+    return jsonify({'user_id': user_id, 'message': 'User created successfully'})
 
 @users_post_routes.route('/api/v1/pokemons', methods=['POST'])
 def capturar_pokemon():
@@ -41,7 +44,7 @@ def capturar_pokemon():
     iv_specialAttack = data['ivs']['specialAttack']
     iv_specialDefense = data['ivs']['specialDefense']
     iv_speed = data['ivs']['speed']
-    location = data['location']
+    location = json.dumps({"place": "team"})  #C onvertir el diccionario a una cadena JSON
     xp = data['xp']
 
     conn = psycopg2.connect(

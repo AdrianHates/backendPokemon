@@ -4,7 +4,7 @@ import psycopg2
 
 users_delete_routes = Blueprint('users_delete_routes', __name__)
 
-@users_routes.route('/api/v1/users/<int:user_id>', methods=['DELETE'])
+@users_delete_routes.route('/api/v1/users/<int:user_id>', methods=['DELETE'])
 def eliminar_usuario(user_id):
     conn = psycopg2.connect(**DATABASE_CONFIG)
     cur = conn.cursor()

@@ -20,8 +20,10 @@ conn = psycopg2.connect(
 
 # Crear una tabla de usuarios si no existe
 cur = conn.cursor()
+#cur.execute("DELETE FROM user_pokemon")
+#cur.execute("DELETE FROM users")
 cur.execute('''
-        
+            
         CREATE TABLE IF NOT EXISTS users (
         user_id SERIAL PRIMARY KEY,
         name VARCHAR(50) NOT NULL,

@@ -21,7 +21,9 @@ def obtener_usuario_por_id(id):
     cur = conn.cursor()
     cur.execute("SELECT user_id, name, gender, x, y, created_at FROM users WHERE user_id = %s", (id,))
     usuario = cur.fetchone()
-    cur.execute("SELECT pokemon_id, pokemon_number, level, hp, status, iv_hp, iv_attack, iv_defense, iv_speed, location, xp, captured_at FROM user_pokemon WHERE user_id = %s", (id,))
+    print(f"Usuario: {usuario}")
+
+    cur.execute("SELECT pokemon_id, pokemon_number, level, hp, status, iv_hp, iv_attack, iv_defense, iv_specialAttack, iv_specialDefense, iv_speed, location, xp, captured_at FROM user_pokemon WHERE user_id = %s", (id,))
     pokemons = cur.fetchall()
     cur.close()
     conn.close()
