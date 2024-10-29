@@ -44,7 +44,7 @@ def capturar_pokemon():
     iv_specialAttack = data['ivs']['specialAttack']
     iv_specialDefense = data['ivs']['specialDefense']
     iv_speed = data['ivs']['speed']
-    location = json.dumps({"place": "team"})  #C onvertir el diccionario a una cadena JSON
+    location = json.dumps({"place": "team"})  #Convertir el diccionario a una cadena JSON
     xp = data['xp']
 
     conn = psycopg2.connect(
