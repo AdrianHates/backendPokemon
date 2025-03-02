@@ -34,7 +34,7 @@ def obtener_usuario_por_id(id):
             "pokemon_id": pokemon["pokemon_id"],
             "pokemon_number": pokemon["pokemon_number"],
             "level": pokemon["level"],
-            "hp": pokemon ["hp"],
+            "hp": pokemon["hp"],
             "status": pokemon["status"],
             "ivs": {
                 "hp": pokemon["iv_hp"],
