@@ -1,6 +1,8 @@
 from flask import Blueprint, jsonify, request
 import psycopg2
 from rutas.db_config import DATABASE_CONFIG
+from psycopg2.extras import RealDictCursor
+
 
 users_get_routes = Blueprint('users_get_routes', __name__)
 
@@ -18,7 +20,7 @@ def obtener_usuarios():
 @users_get_routes.route('/api/v1/users/<id>', methods=['GET'])
 def obtener_usuario_por_id(id):
     conn = psycopg2.connect(**DATABASE_CONFIG)
-    cur = conn.cursor()
+    cur = conn.cursor(cursor_factory=RealDictCursor) 
     cur.execute("SELECT user_id, name, gender, x, y, created_at FROM users WHERE user_id = %s", (id,))
     usuario = cur.fetchone()
     print(f"Usuario: {usuario}")
