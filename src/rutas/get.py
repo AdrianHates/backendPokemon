@@ -43,7 +43,7 @@ def obtener_usuario_por_id(id):
                 "defense": pokemon["iv_defense"],
                 "specialAttack": pokemon["iv_specialAttack"],
                 "specialDefense": pokemon["iv_specialDefense"],
-                "speed": pokemon["speed"]
+                "speed": pokemon["iv_speed"]
             },
             "location": pokemon["location"],
             "xp": pokemon["xp"],
