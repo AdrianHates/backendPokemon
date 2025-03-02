@@ -29,9 +29,8 @@ def obtener_usuario_por_id(id):
     pokemons = cur.fetchall()
     cur.close()
     conn.close()
-    formatted_pokemons = []
-    for pokemon in pokemons:
-        formatted_pokemon = {
+    formatted_pokemons = [
+        {
             "pokemon_id": pokemon["pokemon_id"],
             "pokemon_number": pokemon["pokemon_number"],
             "level": pokemon["level"],
@@ -57,7 +56,8 @@ def obtener_usuario_por_id(id):
                 "speed": 0
             },            
         }
-        formatted_pokemons.append(formatted_pokemon)
+        for pokemon in pokemons
+    ]
 
     return jsonify({ "user": usuario, "pokemons": formatted_pokemons })
 
