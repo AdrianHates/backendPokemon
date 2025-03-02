@@ -9,7 +9,7 @@ users_get_routes = Blueprint('users_get_routes', __name__)
 @users_get_routes.route('/api/v1/users', methods=['GET'])
 def obtener_usuarios():
     conn = psycopg2.connect(**DATABASE_CONFIG)    
-    cur = conn.cursor()
+    cur = conn.cursor(cursor_factory=RealDictCursor) 
     cur.execute("SELECT user_id, name, gender, created_at FROM users")
     users = cur.fetchall()
     cur.close()
