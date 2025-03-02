@@ -32,22 +32,22 @@ def obtener_usuario_por_id(id):
     formatted_pokemons = []
     for pokemon in pokemons:
         formatted_pokemon = {
-            "pokemon_id": pokemon[0],
-            "pokemon_number": pokemon[1],
-            "level": pokemon[2],
-            "hp": pokemon [3],
-            "status": pokemon[4],
+            "pokemon_id": pokemon["pokemon_id"],
+            "pokemon_number": pokemon["pokemon_number"],
+            "level": pokemon["level"],
+            "hp": pokemon ["hp"],
+            "status": pokemon["status"],
             "ivs": {
-                "hp": pokemon[5],
-                "attack": pokemon[6],
-                "defense": pokemon[7],
-                "specialAttack": pokemon[8],
-                "specialDefense": pokemon[9],
-                "speed": pokemon[10]
+                "hp": pokemon["iv_hp"],
+                "attack": pokemon["iv_attack"],
+                "defense": pokemon["iv_defense"],
+                "specialAttack": pokemon["iv_specialAttack"],
+                "specialDefense": pokemon["iv_specialDefense"],
+                "speed": pokemon["speed"]
             },
-            "location": pokemon[11],
-            "xp": pokemon[12],
-            "captured_at": pokemon[13],
+            "location": pokemon["location"],
+            "xp": pokemon["xp"],
+            "captured_at": pokemon["captured_at"],
             "evs": {
                 "hp": 0,
                 "attack": 0,
