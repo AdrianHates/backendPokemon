@@ -23,10 +23,12 @@ def obtener_usuario_por_id(id):
     cur = conn.cursor(cursor_factory=RealDictCursor) 
     cur.execute("SELECT user_id, name, gender, x, y, created_at FROM users WHERE user_id = %s", (id,))
     usuario = cur.fetchone()
-    print(f"Usuario: {usuario}")
+    cur.close()
 
+    cur = conn.cursor(cursor_factory=RealDictCursor)
     cur.execute("SELECT pokemon_id, pokemon_number, level, hp, status, iv_hp, iv_attack, iv_defense, iv_specialAttack, iv_specialDefense, iv_speed, location, xp, captured_at FROM user_pokemon WHERE user_id = %s", (id,))
     pokemons = cur.fetchall()
+    
     cur.close()
     conn.close()
     formatted_pokemons = [
@@ -40,8 +42,8 @@ def obtener_usuario_por_id(id):
                 "hp": pokemon["iv_hp"],
                 "attack": pokemon["iv_attack"],
                 "defense": pokemon["iv_defense"],
-                "specialAttack": pokemon["iv_specialAttack"],
-                "specialDefense": pokemon["iv_specialDefense"],
+                "specialAttack": pokemon["iv_specialattack"],
+                "specialDefense": pokemon["iv_specialdefense"],
                 "speed": pokemon["iv_speed"]
             },
             "location": pokemon["location"],
